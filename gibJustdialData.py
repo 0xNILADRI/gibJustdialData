@@ -1,19 +1,21 @@
 import os
 import csv
 import ssl
-import time
+from Scripts import actions, checkPackage
+
+# check for packages and if not present install 
+chk = checkPackage.CheckPackage()
+chk.check()
+
 from tkinter import *
-from tkinter import ttk
-from tkinter import messagebox
-from actions import *
+import tkinter
+from tkinter.font import BOLD
 from bs4 import BeautifulSoup
 import urllib
 import urllib.request
 
-
-
 root = Tk()
-root.geometry("880x594")
+root.geometry("880x680")
 root.minsize(644,434)
 root.configure(background='black')
 root.title('JustDial Scraper - Educational Purpose Only')
@@ -29,13 +31,15 @@ def startClick():
     rename = name.get()
     getStarted(url,rename)
 
+
 def getStarted(url,name):
 
     if 'downloads' not in os.listdir(os.getcwd()):
         os.mkdir('downloads')
     else:
         pass
-
+    
+    ac = actions.GetAction()
     
     page_number = 1
     service_count = 1
@@ -65,11 +69,11 @@ def getStarted(url,name):
         for service_html in services:
 
             dict_service = {}
-            dict_service['Name'] = get_name(service_html)
-            dict_service['Phone'] = get_phone_number(service_html)
-            dict_service['Rating'] = get_rating(service_html)
-            dict_service['Rating Count'] = get_rating_count(service_html)
-            dict_service['Address'] = get_address(service_html)
+            dict_service['Name'] = ac.get_name(service_html)
+            dict_service['Phone'] = ac.get_phone_number(service_html)
+            dict_service['Rating'] = ac.get_rating(service_html)
+            dict_service['Rating Count'] = ac.get_rating_count(service_html)
+            dict_service['Address'] = ac.get_address(service_html)
             
             csvwriter.writerow(dict_service)
             
@@ -79,29 +83,49 @@ def getStarted(url,name):
 
     out_file.close()
     if status == False:
-        result['text'] = 'Successfully Downloaded!' + ' Go to '+ os.getcwd()+'/downloads/'+name+'.csv'
+        result['text'] = 'Downloaded at '+ os.getcwd()+'/downloads/'+name+'.csv'
 
 
 top = PhotoImage(file='assets/front.png')
 top_image=Label(image=top)
 top_image.pack()
 
-link = Entry(root, font=("Open Sans",18), width = 65, bg = 'grey', borderwidth=0)
-link.insert(0, "Please enter Justdial Wesite, with the category page as a subcategory")
-link.pack(padx=10, pady=(90,35),ipady=4)
+# Create text widget and specify size.
+T = Text(root, height = 10, width = 100, bg='black', fg='white', bd=0)
+
+# Create label
+l = Label(root, font=("HelvLight",22, BOLD), bg='black', fg='white', text = "       Instructions")
+  
+Fact = """        1. Open www.justdial.com
+        2. Select location and search type and click on search
+        3. Copy the link from address bar and paste in the link section
+        4. Name the file and click on Download. 
+
+        ** Don't panic if it shows not responding **
+
+        Watch the tutorial
+        https://www.niladrihere.me"""
+l.pack(pady=(20,0), side=TOP, anchor=W)
+
+T.insert(tkinter.END,Fact)
+T.pack(pady=(0,10), side=TOP, anchor=W)
+
+link = Entry(root, font=("HelvLight",16), width = 62, bg = 'grey', borderwidth=0)
+link.insert(0, "Enter the link (please follow guide for the link)")
+link.pack(padx=10, pady=(0,25),ipady=4)
 link.bind("<Button-1>", lambda event: clear_entry(event, link))
 
-name = Entry(root, font=("Open Sans",18), width = 45, bg = 'grey', borderwidth=0)
-name.insert(0, "Rename your file as (without extension)")
+name = Entry(root, font=("HelvLight",16), width = 45, bg = 'grey', borderwidth=0)
+name.insert(0, "File name (without extension)")
 name.pack(padx=10, pady=(0,15),ipady=4)
 name.bind("<Button-1>", lambda event: clear_entry(event, name))
 
 start_button = PhotoImage(file='assets/down.png')
 myStart = Button(root, image=start_button, command=startClick, borderwidth=0)
 myStart.config(highlightbackground='black', highlightcolor= 'black')
-myStart.pack(pady=35)
+myStart.pack(pady=18)
 
-result = Label(root, font=("Open Sans",18), bg='black', fg='white', text="")
+result = Label(root, font=("HelvLight",12), bg='black', fg='white', text="")
 result.pack()
 
 root.mainloop()
