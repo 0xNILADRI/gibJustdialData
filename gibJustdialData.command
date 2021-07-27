@@ -34,6 +34,7 @@ root.minsize(644,434)
 root.configure(background='black')
 root.title('JustDial Scraper - Educational Purpose Only')
 
+curretnDir = os.path.dirname(os.path.realpath(__file__))
 
 def clear_entry(event, entry):
     entry.delete(0, END)
@@ -48,8 +49,9 @@ def startClick():
 
 def getStarted(url,name):
 
-    if 'downloads' not in os.listdir(os.getcwd()):
-        os.mkdir('downloads')
+    if 'downloads' not in os.listdir(curretnDir):
+        path = os.path.join(curretnDir,"downloads")
+        os.mkdir(path)
     else:
         pass
     
@@ -98,8 +100,6 @@ def getStarted(url,name):
     out_file.close()
     if status == False:
         result['text'] = 'Downloaded at '+ os.getcwd()+'/downloads/'+name+'.csv'
-
-curretnDir = os.path.dirname(os.path.realpath(__file__))
 
 top = PhotoImage(file=curretnDir+'/assets/front.png')
 top_image=Label(image=top)
