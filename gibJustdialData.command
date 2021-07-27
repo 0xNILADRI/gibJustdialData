@@ -119,7 +119,7 @@ Fact = """        1. Open www.justdial.com
         ** Don't panic if it shows not responding **
 
         Watch the tutorial
-        https://www.niladrihere.me"""
+        https://github.com/afkniladri/gibJustdialData/blob/main/assets/instruction.gif"""
 l.pack(pady=(20,0), side=TOP, anchor=W)
 
 T.insert(tkinter.END,Fact)
