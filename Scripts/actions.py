@@ -1,8 +1,8 @@
 class GetAction:
-    def get_name(body):
+    def get_name(self, body):
         return body.find('span', {'class':'lng_cont_name'}).string
 
-    def which_digit(html):
+    def which_digit(self, html):
         mappingDict={'icon-ji':9,
                     'icon-lk':8,
                     'icon-nm':7,
@@ -37,17 +37,17 @@ class GetAction:
         
         return phoneNo
 
-    def get_rating(body):
+    def get_rating(self, body):
         return body.find('span', {'class':'green-box'}).string
 
-    def get_rating_count(body):
+    def get_rating_count(self, body):
         text = body.find('span', {'class':'rt_count'}).string
 
         # Get only digits
         rating_count =''.join(i for i in text if i.isdigit())
         return rating_count
 
-    def get_address(body):
+    def get_address(self, body):
         return body.find('span', {'class':'mrehover'}).text.strip()
 
 
