@@ -99,7 +99,7 @@ def getStarted(url,name):
 
     out_file.close()
     if status == False:
-        result['text'] = 'Downloaded at '+ os.getcwd()+'/downloads/'+name+'.csv'
+        result['text'] = 'Downloaded at '+curretnDir+'downloads/'+name+'.csv'
 
 top = PhotoImage(file=curretnDir+'/assets/front.png')
 top_image=Label(image=top)
