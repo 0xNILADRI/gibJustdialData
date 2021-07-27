@@ -62,7 +62,7 @@ def getStarted(url,name):
     ssl._create_default_https_context = ssl._create_unverified_context
 
     fields = ['Name', 'Phone', 'Rating', 'Rating Count', 'Address']
-    out_file = open('downloads/'+str(name)+'.csv','w')
+    out_file = open(curretnDir+'downloads/'+str(name)+'.csv','w')
     hdr = { 'User-Agent' : 'Mozilla/5.0 (Windows NT 6.1; Win64; x64)' }
     csvwriter = csv.DictWriter(out_file, delimiter=',', fieldnames=fields)
 
