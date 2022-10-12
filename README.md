@@ -1,4 +1,4 @@
-# gibJustdialData
+# gibJustdialData [deprecated -- out of support]
 
 If you loved my work, bestow it with a ⭐
 
